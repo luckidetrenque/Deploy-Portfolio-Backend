@@ -30,7 +30,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = {"", "http://localhost:4200"})
+@CrossOrigin(origins = {"https://lr-portfolio-frontend.web.app", "http://localhost:4200"})
 public class AuthController {
     @Autowired
     PasswordEncoder passwordEncoder;

@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = {"", "http://localhost:4200"})
+@CrossOrigin(origins = {"https://lr-portfolio-frontend.web.app", "http://localhost:4200"})
 
 public class SkillController {
 
