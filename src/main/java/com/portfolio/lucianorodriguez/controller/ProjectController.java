@@ -45,7 +45,7 @@ public class ProjectController {
     }
 
     @GetMapping("/projects/name")
-    public ResponseEntity<Project> findProjectByName(@RequestParam("name") String name) {
+    public ResponseEntity<Project> findProjectByName(@RequestParam("n") String name) {
         if (!projectService.existsProjectByName(name)) {
             return new ResponseEntity(new Message("No existe ningún proyecto con ese nombre"), HttpStatus.NOT_FOUND);
         }

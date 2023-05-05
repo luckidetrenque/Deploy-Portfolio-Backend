@@ -40,7 +40,7 @@ public class SkillController {
     }
 
     @GetMapping("/skills/name")
-    public ResponseEntity<Skill> findSkillByName(@RequestParam("name") String name) {
+    public ResponseEntity<Skill> findSkillByName(@RequestParam("n") String name) {
         if (!skillService.existsSkillByName(name)) {
             return new ResponseEntity(new Message("No existe ninguna skill con ese nombre"), HttpStatus.NOT_FOUND);
         }
@@ -83,7 +83,7 @@ public class SkillController {
         if (!skillService.existsSkillById(id)) {
             return new ResponseEntity(new Message("No existe ninguna skill con ese ID"), HttpStatus.NOT_FOUND);
         }
-        if (skillService.existsSkillByName(skillDto.getName())) {
+        if (skillService.existsSkillByName(skillDto.getName()) && skillService.getSkillByName(skillDto.getName()).get().getId() != id) {
             return new ResponseEntity(new Message("Ya existe una skill con ese nombre"), HttpStatus.BAD_REQUEST);
         }
 
@@ -98,6 +98,7 @@ public class SkillController {
         Skill skill = skillService.getSkillById(id).get();
         skill.setName(skillDto.getName());
         skill.setLevel(skillDto.getLevel());
+        skill.setImage(skillDto.getImage());
 
         skillService.saveSkill(skill);
 

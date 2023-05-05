@@ -43,7 +43,7 @@ public class EducationController {
     }
 
     @GetMapping("/education/institution")
-    public ResponseEntity<Education> findEducationByInstitution(@RequestParam("institution") String institution) {
+    public ResponseEntity<Education> findEducationByInstitution(@RequestParam("i") String institution) {
         if (!educationService.existsEducationByInstitution(institution)) {
             return new ResponseEntity(new Message("No existe ninguna educación con esa institución"), HttpStatus.NOT_FOUND);
         }
@@ -52,7 +52,7 @@ public class EducationController {
     }
 
     @GetMapping("/education/degree")
-    public ResponseEntity<Education> findEducationByDegree(@RequestParam("degree") String degree) {
+    public ResponseEntity<Education> findEducationByDegree(@RequestParam("d") String degree) {
         if (!educationService.existsEducationByDegree(degree)) {
             return new ResponseEntity(new Message("No existe ninguna educación con esa carrera"), HttpStatus.NOT_FOUND);
         }
@@ -95,7 +95,7 @@ public class EducationController {
         if (!educationService.existsEducationById(id)) {
             return new ResponseEntity(new Message("No existe ninguna educación con ese ID"), HttpStatus.NOT_FOUND);
         }
-        if (educationService.existsEducationByInstitution(educationDto.getInstitution()) && educationService.existsEducationByDegree(educationDto.getDegree()) && educationService.getEducationByInstitution(educationDto.getDegree()).get().getId() != id) {
+        if (educationService.existsEducationByInstitution(educationDto.getInstitution()) && educationService.existsEducationByDegree(educationDto.getDegree()) && educationService.getEducationByDegree(educationDto.getDegree()).get().getId() != id) {
             return new ResponseEntity(new Message("Ya existe una educación con esa institución y carrera"), HttpStatus.BAD_REQUEST);
         }
 

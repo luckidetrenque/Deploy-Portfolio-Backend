@@ -24,6 +24,10 @@ public class ExperienceService {
         return experienceRepository.findById(id);
     }
 
+    public Optional<Experience> getExperienceByCompany(String company) {
+        return experienceRepository.findByCompany(company);
+    }
+
     public Optional<Experience> getExperienceByPosition(String position) {
         return experienceRepository.findByPosition(position);
     }
@@ -38,6 +42,10 @@ public class ExperienceService {
 
     public boolean existsExperienceById(Long id) {
         return experienceRepository.existsById(id);
+    }
+
+    public boolean existsExperienceByCompany(String company) {
+        return experienceRepository.existsByCompany(company);
     }
 
     public boolean existsExperienceByPosition(String position) {

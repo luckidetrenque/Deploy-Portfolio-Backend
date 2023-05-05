@@ -45,7 +45,7 @@ public class ExperienceController {
     }
 
     @GetMapping("/experiences/position")
-    public ResponseEntity<Experience> findExperienceByPosition(@RequestParam("position") String position) {
+    public ResponseEntity<Experience> findExperienceByPosition(@RequestParam("p") String position) {
         if (!experienceService.existsExperienceByPosition(position)) {
             return new ResponseEntity(new Message("No existe ninguna experiencia con ese puesto"), HttpStatus.NOT_FOUND);
         }
@@ -56,8 +56,8 @@ public class ExperienceController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/experiences")
     public ResponseEntity<?> createExperience(@Valid @RequestBody ExperienceDto experienceDto) {
-        if (experienceService.existsExperienceByPosition(experienceDto.getPosition())) {
-            return new ResponseEntity(new Message("Ya existe una experiencia con ese puesto"), HttpStatus.BAD_REQUEST);
+        if (experienceService.existsExperienceByCompany(experienceDto.getCompany()) && experienceService.existsExperienceByPosition(experienceDto.getPosition())) {
+            return new ResponseEntity(new Message("Ya existe una experiencia con esa empresa y con ese puesto"), HttpStatus.BAD_REQUEST);
         }
 
         if (StringUtils.isBlank(experienceDto.getPosition()) || StringUtils.isBlank(experienceDto.getCompany()) || StringUtils.isBlank(experienceDto.getDescription())) {
@@ -88,7 +88,7 @@ public class ExperienceController {
         if (!experienceService.existsExperienceById(id)) {
             return new ResponseEntity(new Message("No existe ninguna experiencia con ese ID"), HttpStatus.NOT_FOUND);
         }
-        if (experienceService.existsExperienceByPosition(experienceDto.getPosition())) {
+        if (experienceService.existsExperienceByPosition(experienceDto.getPosition()) && experienceService.getExperienceByPosition(experienceDto.getPosition()).get().getId() != id) {
             return new ResponseEntity(new Message("Ya existe una experiencia con ese puesto"), HttpStatus.BAD_REQUEST);
         }
 

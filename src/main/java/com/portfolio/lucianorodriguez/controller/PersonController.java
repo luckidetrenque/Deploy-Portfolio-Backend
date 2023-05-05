@@ -38,7 +38,7 @@ public class PersonController {
     }
 
     @GetMapping("/persons/fullname")
-    public ResponseEntity<Person> findPersonByNameAndSurname(@RequestParam("name") String name, @RequestParam("surname") String surname) {
+    public ResponseEntity<Person> findPersonByNameAndSurname(@RequestParam("n") String name, @RequestParam("s") String surname) {
         if (!personService.existsPersonByNameAndSurname(name, surname)) {
             return new ResponseEntity(new Message("No existe ninguna persona con ese nombre y apellido"), HttpStatus.NOT_FOUND);
         }
